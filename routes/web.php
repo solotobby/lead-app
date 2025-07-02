@@ -7,6 +7,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\User\Dashboard;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,7 +17,19 @@ Route::get('/', function () {
 //     ->middleware(['auth', 'verified'])
 //     ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+ 
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
     //  Route::get('user/dashboard', [HomeController::class, 'userDashboard'])
 

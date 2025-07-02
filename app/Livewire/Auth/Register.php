@@ -33,11 +33,16 @@ class Register extends Component
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['acc_id'] = $this->generateAccountId();
 
         event(new Registered(($user = User::create($validated))));
 
         Auth::login($user);
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
+    }
+
+    public function generateAccountId(){
+        return rand(999, 9999);
     }
 }
