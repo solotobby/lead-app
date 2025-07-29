@@ -26,7 +26,7 @@ class Login extends Component
     /**
      * Handle an incoming authentication request.
      */
-    public function login(): void
+    public function login()
     {
         $this->validate();
 
@@ -42,8 +42,9 @@ class Login extends Component
 
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
-
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        return redirect('dashboard');
+        
+        // $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
 
     /**

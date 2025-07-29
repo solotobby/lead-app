@@ -1,15 +1,20 @@
 <div>
     {{-- The whole world belongs to you. --}}
 
-    
+       <!-- Start Content-->
+                    <div class="container-xxl">
                         <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
                             <div class="flex-grow-1">
                                 <h4 class="fs-18 fw-semibold m-0">Dashboard</h4>
                             </div>
                         </div>
 
+                          
+                    </div>
 
-                        @if ($showModal)
+
+
+                        {{-- @if ($showModal)
                             <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true" wire:ignore.self>
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -28,7 +33,7 @@
                                 </div>
                             </div>
 
-                            {{-- Tell browser to trigger JS modal after rendering --}}
+                            
                             <script>
                                 document.addEventListener("DOMContentLoaded", function () {
                                     setTimeout(function () {
@@ -37,7 +42,7 @@
                                     }, 100); // slight delay to ensure it's in DOM
                                 });
                             </script>
-                        @endif
+                        @endif --}}
 
 
 </div>

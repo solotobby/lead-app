@@ -6,6 +6,8 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\User\Dashboard;
+use App\Livewire\User\SellerDashboard;
+use App\Livewire\User\UpdateInformation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -31,9 +33,12 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-    //  Route::get('user/dashboard', [HomeController::class, 'userDashboard'])
+     Route::get('switch/account', [HomeController::class, 'switchAccount'])->name('switch.account');
 
      Route::get('user/dashboard', Dashboard::class)->name('user.dashboard');
+     Route::get('update/information', UpdateInformation::class);
+     Route::get('seller/dashboard', SellerDashboard::class);
+
       Route::get('admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
 });
 

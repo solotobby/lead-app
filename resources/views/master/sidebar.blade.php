@@ -2,20 +2,20 @@
                     <div id="sidebar-menu">
 
                         <div class="logo-box">
-                            <a href="index.html" class="logo logo-light">
+                            <a href="{{url('dashboard')}}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22">
+                                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="24">
+                                    <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="24">
                                 </span>
                             </a>
-                            <a href="index.html" class="logo logo-dark">
+                            <a href="{{url('dashboard')}}" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-sm.png" alt="" height="22">
+                                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="assets/images/logo-dark.png" alt="" height="24">
+                                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="24">
                                 </span>
                             </a>
                         </div>
@@ -25,30 +25,34 @@
                             <li class="menu-title">Menu</li>
 
                             <li>
-                                <a href="index.html">
+                                <a href="{{url('dashboard')}}">
                                     <i data-feather="home"></i>
-                                    <span class="badge bg-success rounded-pill float-end">9+</span>
                                     <span> Dashboard </span>
                                 </a>
                             </li>
 
+                           
+
                             <li>
-                                <a href="widgets.html">
+                                <a href="{{url('leads')}}">
                                     <i data-feather="aperture"></i>
-                                    <span> Widgets </span>
+                                     <span class="badge bg-success rounded-pill float-end">9+</span>
+                                    <span> Leads </span>
                                 </a>
                             </li>
 
                             <li>
-                                <a href="landing.html" target="_blank">
+                                <a href="{{ url('settings') }}">
                                     <i data-feather="globe"></i>
-                                    <span> Landing </span>
+                                     {{-- <span class="badge bg-success rounded-pill float-end">9</span> --}}
+                                    <span> Settings </span>
                                 </a>
                             </li>
+                            
 
-                            <li class="menu-title">Pages</li>
+                            {{-- <li class="menu-title">Pages</li> --}}
 
-                            <li>
+                            {{-- <li>
                                 <a href="#sidebarAuth" data-bs-toggle="collapse">
                                     <i data-feather="users"></i>
                                     <span> Authentication </span>
@@ -144,11 +148,11 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
 
-                            <li class="menu-title mt-2">General</li>
+                            {{-- <li class="menu-title mt-2">General</li> --}}
 
-                            <li>
+                            {{-- <li>
                                 <a href="#sidebarBaseui" data-bs-toggle="collapse">
                                     <i data-feather="package"></i>
                                     <span> Components </span>
@@ -374,7 +378,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
 
                     </div>

@@ -2,14 +2,28 @@
 
 namespace App\Livewire\User;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Dashboard extends Component
 {
     public $showModal = false;
+    
 
     public function mount(){
-        $this->showModal = true;
+        $user = Auth::user();
+
+        if($user->mode == 'Buyer'){
+            if($user->phone == null){
+                redirect('update/information');
+            }else{
+                redirect('dashboard');
+            }
+        }else{
+            redirect('seller/dashboard');
+        }
+        
+        // $this->showModal = true;
     }
 
     public function render()

@@ -48,8 +48,11 @@
             <!-- Left Sidebar Start -->
             <div class="app-sidebar-menu">
                 <div class="h-100" data-simplebar>
-
-                    @include('master.sidebar')
+                    @if(auth()->user()->role == 'user')
+                        @include('master.user_sidebar')
+                    @else
+                        @include('master.admin_sidebar')
+                    @endif
 
                     <div class="clearfix"></div>
 
@@ -64,14 +67,11 @@
             <div class="content-page">
                 <div class="content">
 
-                    <!-- Start Content-->
-                    <div class="container-xxl">
+                  
 
                         {{ $slot }}
 
-
-
-                    </div> <!-- container-fluid -->
+                  
                 </div> <!-- content -->
 
                 <!-- Footer Start -->

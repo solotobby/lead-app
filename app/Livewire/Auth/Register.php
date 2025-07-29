@@ -24,7 +24,7 @@ class Register extends Component
     /**
      * Handle an incoming registration request.
      */
-    public function register(): void
+    public function register()
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -34,12 +34,13 @@ class Register extends Component
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['acc_id'] = $this->generateAccountId();
+        $validated['mode'] = 'Buyer';
 
         event(new Registered(($user = User::create($validated))));
 
         Auth::login($user);
-
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        return redirect('dashboard');
+        // $this->redirect(route('dashboard', absolute: false), navigate: true);
     }
 
     public function generateAccountId(){

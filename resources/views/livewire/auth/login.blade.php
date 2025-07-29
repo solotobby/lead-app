@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 text-end">
-                                <a class='text-muted fs-14' href='auth-recoverpw.html'>Forgot password?</a>                             
+                                <a class='text-muted fs-14' href='{{ route('password.request') }}'>Forgot password?</a>                             
                             </div>
                         </div>
                         

@@ -173,6 +173,20 @@
                         <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
                         <span>Lock Screen</span>
                     </a>
+                    
+                    @if(auth()->user()->mode == 'Buyer')
+                        <a href="{{ route('switch.account') }}" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
+                            <span>Swich to Seller</span>
+                        </a>
+                    @else
+                        <a href="{{ route('switch.account') }}" class="dropdown-item notify-item">
+                            <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
+                            <span>Swich to Buyer</span>
+                        </a>
+                    @endif
+
+
 
                     <div class="dropdown-divider"></div>
 
