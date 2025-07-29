@@ -17,7 +17,7 @@ class Dashboard extends Component
             if($user->phone == null){
                 redirect('update/information');
             }else{
-                redirect('dashboard');
+                redirect('user/dashboard');
             }
         }else{
             redirect('seller/dashboard');

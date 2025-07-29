@@ -2,8 +2,11 @@
 
 namespace App\Livewire\User;
 
+use App\Models\LeadInformation;
 use App\Models\Service;
 use App\Models\ServiceQuestion;
+use App\Models\ServiceQuestionAnswer;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class SellerDashboard extends Component
@@ -15,8 +18,6 @@ class SellerDashboard extends Component
     public $answers = [];
     public $currentIndex = 0;
     public $validationError = null;
-
- 
 
 
     public function mount(){
@@ -65,24 +66,58 @@ class SellerDashboard extends Component
     public function submitAnswers()
     {
 
-        $this->validationError = null;
+            $this->validationError = null;
 
-        $currentQuestion = $this->questions[$this->currentIndex];
-        $questionId = $currentQuestion->id;
+            $currentQuestion = $this->questions[$this->currentIndex];
+            $questionId = $currentQuestion->id;
 
-        // Check if answer exists
-        if (!isset($this->answers[$questionId]) || empty($this->answers[$questionId])) {
-            $this->validationError = "Please select at least one option to continue.";
-            return;
+            // Check if answer exists
+            if (!isset($this->answers[$questionId]) || empty($this->answers[$questionId])) {
+                $this->validationError = "Please select at least one option to continue.";
+                return;
+            }
+
+
+            $userId = Auth::id();
+
+            $lead = LeadInformation::create(['user_id' => $userId, 'service_id' => $this->selectedService->id, 'code' => rand(9999,999999)]);
+            if($lead){
+                foreach ($this->questions as $question) {
+                $questionId = $question->id;
+                $selected = $this->answers[$questionId] ?? null;
+
+                // Skip if no answer (you may handle required validation elsewhere)
+                if (!$selected) continue;
+
+                // Normalize for checkbox (array) and radio (scalar)
+                if (is_array($selected)) {
+                    $selectedOptions = array_keys(array_filter($selected));
+                } else {
+                    $selectedOptions = [$selected];
+                }
+
+
+                foreach ($selectedOptions as $optionId) {
+                    ServiceQuestionAnswer::create([
+                        'service_id' => $question->service_id,
+                        'user_id' => $userId,
+                        'service_question_id' => $questionId,
+                        'service_question_option_id' => $optionId,
+                        'lead_information_id' => $lead->id
+                    ]);
+
+                }
+
+            }
+
+            session()->flash('success', 'Your answers have been submitted!');
+            $this->reset(['answers', 'currentIndex']);
+            redirect('dashboard');
+
+
         }
-
-        dd('submitted');
-
-
-
-
     }
-
+      
     public function render()
     {
         return view('livewire.user.seller-dashboard');
