@@ -1,20 +1,81 @@
 <div>
     {{-- The whole world belongs to you. --}}
 
-       <!-- Start Content-->
-                    <div class="container-xxl">
-                        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
-                            <div class="flex-grow-1">
-                                <h4 class="fs-18 fw-semibold m-0">Dashboard</h4>
-                            </div>
+    <!-- Start Content-->
+    <div class="container-xxl">
+        <div class="py-3 d-flex align-items-sm-center flex-sm-row flex-column">
+            <div class="flex-grow-1">
+                <h4 class="fs-18 fw-semibold m-0">Dashboard</h4>
+            </div>
+        </div>
+
+        @if ($leads && $leads->count() > 0)
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title mb-4">Leads from Your Services</h4>
                         </div>
 
-                          
-                    </div>
+                        <div class="card-body">
+                            @foreach ($leads as $lead)
+                                @php
+                                    // Mask email
+                                    $email = $lead->user->email;
+                                    if ($email) {
+                                        [$name, $domain] = explode('@', $email);
+                                        $maskedEmail =
+                                            substr($name, 0, 1) .
+                                            str_repeat('*', max(strlen($name) - 1, 1)) .
+                                            '@' .
+                                            $domain;
+                                    } else {
+                                        $maskedEmail = null;
+                                    }
+
+                                    // Mask phone
+                                    $phone = $lead->user->phone;
+                                    if ($phone) {
+                                        $maskedPhone =
+                                            substr($phone, 0, 2) .
+                                            str_repeat('*', max(strlen($phone) - 2, 0)) .
+                                            substr($phone, -2);
+                                    } else {
+                                        $maskedPhone = null;
+                                    }
+                                @endphp
+
+
+                                <div class="alert alert-info" role="alert">
+
+                                    Name of Service: <strong>{{ $lead->first()->service->name ?? 'N/A' }}</strong><br>
+                                    Credit Required: <strong>{{ $lead->credit }}</strong><br>
+                                    Name of Client: <strong>{{ $lead->user->name }}</strong><br>
+                                    Phone of Client: <strong>{{ $maskedPhone }}</strong><br>
+                                    Email of Client: <strong>{{ $maskedEmail }}</strong><br>
+                                    Number of Conversions Started: <strong>1 of 5</strong><br>
+
+                                    <a href="" class="btn btn-sm btn-primary mt-2">Contact Poster</a>
+
+                                </div>
+                            @endforeach
 
 
 
-                        {{-- @if ($showModal)
+                        </div>
+
+
+        @endif
+
+
+
+    </div>
+
+
+
+
+
+    {{-- @if ($showModal)
                             <div class="modal fade" id="standard-modal" tabindex="-1" aria-labelledby="standard-modalLabel" aria-hidden="true" wire:ignore.self>
                                 <div class="modal-dialog">
                                     <div class="modal-content">

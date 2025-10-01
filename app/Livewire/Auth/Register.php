@@ -33,8 +33,8 @@ class Register extends Component
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
-        $validated['acc_id'] = $this->generateAccountId();
-        $validated['mode'] = 'Buyer';
+        $validated['acc_id'] = 'USER'.strtoupper(uniqid());
+        $validated['mode'] = 'Seller';
 
         event(new Registered(($user = User::create($validated))));
 

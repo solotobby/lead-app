@@ -9,30 +9,33 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
 
-    public function dashboard(){
+    public function dashboard()
+    {
         $user = Auth::user();
-        if($user->role == 'user'){
+        if ($user->role == 'user') {
             return redirect('user/dashboard');
-        }else{
-             return redirect('admin/dashboard');
+        } else {
+            return redirect('admin/dashboard');
         }
     }
 
-    public function switchAccount(){
+    public function switchAccount()
+    {
         $user = Auth::user();
         $userInfor = User::where('id', $user->id)->first();
-        if($userInfor->mode == 'Buyer'){
+        if ($userInfor->mode == 'Buyer') {
             $userInfor->mode = 'Seller';
             $userInfor->save();
             return redirect('dashboard');
-        }else{
+        } else {
             $userInfor->mode = 'Buyer';
             $userInfor->save();
             return redirect('dashboard');
         }
     }
 
-    public function userDashboard(){
+    public function userDashboard()
+    {
         return view('dashboard');
     }
 }

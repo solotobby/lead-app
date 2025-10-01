@@ -28,7 +28,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'website',
         'company_name',
         'description',
-        'mode'
+        'mode',
+        'role',
+        'credit'
     ];
 
     /**
@@ -61,7 +63,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return Str::of($this->name)
             ->explode(' ')
-            ->map(fn (string $name) => Str::of($name)->substr(0, 1))
+            ->map(fn(string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'user_services');
     }
 }

@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'password' => [
+        'admin' => env('ADMIN_PASSWORD'),
+    ],
+
 ];

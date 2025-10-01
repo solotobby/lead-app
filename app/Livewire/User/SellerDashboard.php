@@ -18,21 +18,24 @@ class SellerDashboard extends Component
     public $answers = [];
     public $currentIndex = 0;
     public $validationError = null;
+    public $myServices;
 
 
-    public function mount(){
+    public function mount()
+    {
+        $user = Auth::user();
         $this->services = Service::all();
+        $this->myServices = LeadInformation::where('user_id', $user->id)->with('service')->latest()->get();
     }
 
-     public function showServiceQuestions($serviceId)
+    public function showServiceQuestions($serviceId)
     {
         $this->selectedService = Service::findOrFail($serviceId);
         $this->questions = ServiceQuestion::with('options')->where('service_id', $serviceId)->latest()->get();
         $this->currentIndex = 0;
-
     }
 
-    
+
     public function nextQuestion()
     {
         $this->validationError = null;
@@ -66,23 +69,23 @@ class SellerDashboard extends Component
     public function submitAnswers()
     {
 
-            $this->validationError = null;
+        $this->validationError = null;
 
-            $currentQuestion = $this->questions[$this->currentIndex];
-            $questionId = $currentQuestion->id;
+        $currentQuestion = $this->questions[$this->currentIndex];
+        $questionId = $currentQuestion->id;
 
-            // Check if answer exists
-            if (!isset($this->answers[$questionId]) || empty($this->answers[$questionId])) {
-                $this->validationError = "Please select at least one option to continue.";
-                return;
-            }
+        // Check if answer exists
+        if (!isset($this->answers[$questionId]) || empty($this->answers[$questionId])) {
+            $this->validationError = "Please select at least one option to continue.";
+            return;
+        }
 
 
-            $userId = Auth::id();
+        $userId = Auth::id();
 
-            $lead = LeadInformation::create(['user_id' => $userId, 'service_id' => $this->selectedService->id, 'code' => rand(9999,999999)]);
-            if($lead){
-                foreach ($this->questions as $question) {
+        $lead = LeadInformation::create(['user_id' => $userId, 'service_id' => $this->selectedService->id, 'code' => 'LEAD' . strtoupper(uniqid()), 'credit' => 0.00]);
+        if ($lead) {
+            foreach ($this->questions as $question) {
                 $questionId = $question->id;
                 $selected = $this->answers[$questionId] ?? null;
 
@@ -105,19 +108,25 @@ class SellerDashboard extends Component
                         'service_question_option_id' => $optionId,
                         'lead_information_id' => $lead->id
                     ]);
-
                 }
-
             }
+
+            $lead->credit = 5.00; // Assign initial credit value
+            $lead->save();
 
             session()->flash('success', 'Your answers have been submitted!');
             $this->reset(['answers', 'currentIndex']);
+
+            // TO DO: Send email to user on creation of lead
+            //  Mail::to(Auth::user()->email)->send(new LeadCreatedMail($lead));
+
+            //TO DO: notfiy admin of new lead creation
+            // Notification::send(User::where('role', 'admin')->get(), new NewLeadCreated($lead));
+
             redirect('dashboard');
-
-
         }
     }
-      
+
     public function render()
     {
         return view('livewire.user.seller-dashboard');

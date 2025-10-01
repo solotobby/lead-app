@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained()->onDelete('cascade');
             $table->string('code');
+            $table->decimal('credit', 10, 2); //value of the lead
+            $table->string('status')->default('pending'); //pending, approved, rejected
             $table->timestamps();
         });
     }
