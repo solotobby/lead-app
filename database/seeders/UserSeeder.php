@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
         {
             $user= User::updateOrCreate($user);
             $user->email_verified_at = now();
-            // $user->acc_id = 'ADM'.strtoupper(uniqid());
             $user->save();
         }
 

@@ -8,6 +8,8 @@ use App\Livewire\Settings\Profile;
 use App\Livewire\User\Dashboard;
 use App\Livewire\User\SellerDashboard;
 use App\Livewire\User\UpdateInformation;
+use App\Livewire\User\UserLeadInformation;
+use App\Livewire\User\UserLeads;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -40,6 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
      Route::get('user/dashboard', Dashboard::class)->name('user.dashboard');
      Route::get('update/information', UpdateInformation::class);
      Route::get('seller/dashboard', SellerDashboard::class);
+     Route::get('seller/leads/{lead}', UserLeadInformation::class)->name('user.lead.information');
+     Route::get('seller/leads', UserLeads::class)->name('user.leads');
+
 
       Route::get('admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
 });

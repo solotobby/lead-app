@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('role')->default('user');
             $table->string('phone')->nullable()->unique();
             $table->string('location')->nullable();
-            $table->decimal('credit',10,2)->nullable();
+            $table->decimal('credit',10,2)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
