@@ -53,72 +53,74 @@
                                     Name of Client: <strong>{{ $lead->user->name }}</strong><br>
                                     Phone of Client: <strong>{{ $maskedPhone }}</strong><br>
                                     Email of Client: <strong>{{ $maskedEmail }}</strong><br>
-                                    Number of Conversions Started: <strong>1 of 5</strong><br>
-                                    {{-- Date of Interest: <strong>{{ $lead->created_at->format('F j, Y, g:i a') }}</strong>. --}}
+                                    Number of Conversions Started: <strong>{{ $lead->contacted_count }} of
+                                        5</strong><br>
+                                    
                                     <br>
                                     @if (auth()->user()->credit <= $lead->credit)
-                                             <button class="btn btn-primary" data-bs-target="#exampleModalToggle-{{ $lead->code }}" data-bs-toggle="modal">Add Credit</button>
+                                        <button class="btn btn-primary"
+                                            data-bs-target="#exampleModalToggle-{{ $lead->code }}"
+                                            data-bs-toggle="modal">Add Credit</button>
                                     @else
-
-                                     
-                                         <button class="btn btn-primary" wire:click="contactLead('{{$lead->code}}')">Contact Poster</button>
-                                       
-
-
-
-
-                                        
+                                        <button class="btn btn-primary"
+                                            wire:click="contactLead('{{ $lead->code }}')">Contact Poster</button>
                                     @endif
-                                    
-                                      {{-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle-{{ $lead->code }}" data-bs-toggle="modal">Contact Poster</button> --}}
+
+                                    {{-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle-{{ $lead->code }}" data-bs-toggle="modal">Contact Poster</button> --}}
                                     {{-- <a href="" class="btn btn-sm btn-primary mt-2">Contact Poster</a> --}}
 
                                 </div>
 
-                                <div class="modal fade" id="exampleModalToggle-{{ $lead->code }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                <div class="modal fade" id="exampleModalToggle-{{ $lead->code }}" aria-hidden="true"
+                                    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Add Credit</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                           You require {{ $lead->credit }} credits to contact this lead. You currently have {{ auth()->user()->credit }} credits. Please add credit to proceed.
-                                            <br>
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Add Credit
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                You require {{ $lead->credit }} credits to contact this lead. You
+                                                currently have {{ auth()->user()->credit }} credits. Please add credit
+                                                to proceed.
+                                                <br>
 
-                                            Credit: 450<br>
-                                            Amount: £300 <br>
+                                                Credit: 450<br>
+                                                Amount: £300 <br>
 
-                                           <button class="btn btn-primary" wire:click="makePayment()">Add Credit</button>
+                                                <button class="btn btn-primary" wire:click="makePayment()">Add
+                                                    Credit</button>
 
-                                        </div>
-                                        {{-- <div class="modal-footer">
+                                            </div>
+                                            {{-- <div class="modal-footer">
                                             <button class="btn btn-primary" data-bs-target="#exampleModalToggle2-{{ $lead->code }}" data-bs-toggle="modal">Open second modal</button>
                                         </div> --}}
                                         </div>
                                     </div>
                                 </div>
-                                    
+
                                 {{-- second modal --}}
-                                <div class="modal fade" id="exampleModalToggle2-{{ $lead->code }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                <div class="modal fade" id="exampleModalToggle2-{{ $lead->code }}" aria-hidden="true"
+                                    aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Hide this modal and show the first with the button below.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
-                                        </div>
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Hide this modal and show the first with the button below.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-primary" data-bs-target="#exampleModalToggle"
+                                                    data-bs-toggle="modal">Back to first</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                  
-
-
                             @endforeach
 
 

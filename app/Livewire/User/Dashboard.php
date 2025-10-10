@@ -29,8 +29,25 @@ class Dashboard extends Component
         }
 
         //fetch users serivices and fetch leads that belongs to the user
+        // $this->leads = LeadInformation::whereIn('service_id', $user->services->pluck('id'))
+        //     ->with('service') // eager load service
+        //     ->get();
+
+
+        // Fetch leads that the user has not contacted yet
         $this->leads = LeadInformation::whereIn('service_id', $user->services->pluck('id'))
-            ->with('service') // eager load service
+            ->whereDoesntHave('users', function ($query) use ($user) {
+                // $query->where('user_id', $user->id);
+                $query->where('user_leads.user_id', $user->id)
+                    ->where('user_leads.status', 'contacted');
+            })
+            
+            ->with('service')
+            ->withCount([
+        'users as contacted_count' => function ($query) {
+            $query->where('user_leads.status', 'contacted');
+        },
+    ])
             ->get();
     }
 
@@ -39,7 +56,7 @@ class Dashboard extends Component
         //process payement, if successful add credit to user account
 
         $this->addCredit(1); // for now add 1 quantity of credit
-         dd('credited added');
+        dd('credited added');
         //dd('add payment integration here');
     }
 
@@ -52,12 +69,11 @@ class Dashboard extends Component
         $user->save();
 
         return response()->json(['status' => true, 'message' => 'Credit added successfully.', 'new_credit' => $user->credit]);
-
     }
 
     public function contactLead($code)
     {
-       
+
 
         $user = Auth::user();
         $lead = LeadInformation::where('code', $code)->first();
@@ -81,9 +97,8 @@ class Dashboard extends Component
         User::find($user->id)->leads()->syncWithoutDetaching([
             $lead->id => ['status' => 'contacted']
         ]);
-    
-        return redirect("seller/leads/$code");
 
+        return redirect("seller/leads/$code");
     }
 
 

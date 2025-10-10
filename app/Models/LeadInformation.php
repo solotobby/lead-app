@@ -19,4 +19,13 @@ class LeadInformation extends Model
         return $this->belongsTo(Service::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_leads', 'lead_id', 'user_id')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
+
+
+
 }
