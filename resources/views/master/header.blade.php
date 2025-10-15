@@ -159,7 +159,7 @@
                 <div class="dropdown-menu dropdown-menu-end profile-dropdown ">
                     <!-- item-->
                     <div class="dropdown-header noti-title">
-                        <h6 class="text-overflow m-0">Welcome {{ auth()->user()->name }}!</h6>
+                        <h6 class="text-overflow m-0">Mode <i>{{ auth()->user()->mode }}</i></h6>
                     </div>
 
                     <!-- item-->
@@ -174,15 +174,15 @@
                         <span>Lock Screen</span>
                     </a>
                     
-                    @if(auth()->user()->mode == 'Buyer')
+                    @if(auth()->user()->mode == 'Business')
                         <a href="{{ route('switch.account') }}" class="dropdown-item notify-item">
                             <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
-                            <span>Swich to Seller</span>
+                            <span>Swich to Professiona</span>
                         </a>
                     @else
                         <a href="{{ route('switch.account') }}" class="dropdown-item notify-item">
                             <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
-                            <span>Swich to Buyer</span>
+                            <span>Swich to Buiness</span>
                         </a>
                     @endif
 

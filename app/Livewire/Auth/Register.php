@@ -34,7 +34,7 @@ class Register extends Component
 
         $validated['password'] = Hash::make($validated['password']);
         $validated['acc_id'] = 'USER'.strtoupper(uniqid());
-        $validated['mode'] = 'Seller';
+        $validated['mode'] = 'Professional'; // Default mode set to 'Professional'
 
         event(new Registered(($user = User::create($validated))));
 

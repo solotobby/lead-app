@@ -1,63 +1,100 @@
 <div id="sidebar-menu">
 
-                        <div class="logo-box">
-                            <a href="{{url('dashboard')}}" class="logo logo-light">
-                                <span class="logo-sm">
-                                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="24">
-                                </span>
-                            </a>
-                            <a href="{{url('dashboard')}}" class="logo logo-dark">
-                                <span class="logo-sm">
-                                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
-                                </span>
-                                <span class="logo-lg">
-                                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="24">
-                                </span>
-                            </a>
-                        </div>
+    <div class="logo-box">
 
-                        <ul id="side-menu">
+        <a href="{{ url('dashboard') }}" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="{{ asset('assets/images/logo-light.png') }}" alt="" height="24">
+            </span>
+        </a>
 
-                            <li class="menu-title">Menu</li>
+        <a href="{{ url('dashboard') }}" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="{{ asset('assets/images/logo-sm.png') }}" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" height="24">
+            </span>
+        </a>
+    </div>
 
-                            <li>
-                                <a href="{{url('dashboard')}}">
-                                    <i data-feather="home"></i>
-                                    <span> Dashboard </span>
-                                </a>
-                            </li>
+    <ul id="side-menu">
 
-                           @if(auth()->user()->mode == 'Buyer')
+        <li class="menu-title">Menu</li>
 
-                            <li>
-                                <a href="{{url('leads')}}">
-                                    <i data-feather="aperture"></i>
-                                     <span class="badge bg-success rounded-pill float-end">9+</span>
-                                    <span> Leads </span>
-                                </a>
-                            </li>
+        <li>
+            <a href="{{ url('dashboard') }}">
+                <i data-feather="home"></i>
+                <span> Dashboard </span>
+            </a>
+        </li>
 
-                            <li>
-                                <a href="{{ url('settings') }}">
-                                    <i data-feather="globe"></i>
-                                     {{-- <span class="badge bg-success rounded-pill float-end">9</span> --}}
-                                    <span> Settings </span>
-                                </a>
-                            </li>
-                            @else
-                                <li>
-                                    <a href="{{url('dd')}}">
-                                        <i data-feather="aperture"></i>
-                                        {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
-                                        <span> Create New Request</span>
-                                    </a>
-                                </li>
-                            @endif
-                            
-                        </ul>
+        
+        @if (auth()->user()->mode == 'Business')
+            {{-- Create Leads --}}
+            <li>
+                <a href="{{ url('seller/dashboard') }}">
+                    <i data-feather="aperture"></i>
+                    {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                    <span>Create Lead</span> 
+                </a>
+            </li>
+            {{-- List leads created and conversations started --}}
+              <li>
+                <a href="{{ url('seller/dashboard') }}">
+                    <i data-feather="aperture"></i>
+                    {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                    <span>My Leads</span>
+                </a>
+            </li>
+
+        @else
+        <li>
+            <a href="{{ route('leads') }}">
+                <i data-feather="aperture"></i>
+                {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                <span> Leads </span>
+            </a>
+        </li>
+        
+<li>
+            <a href="{{ url('conversations') }}">
+                <i data-feather="aperture"></i>
+                {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
+                <span>Conversations</span>
+            </a>
+        </li>
+        @endif
+
+
+            
+        
+
+
+
+
+        {{-- @if (auth()->user()->mode == 'Buyer')
+            
+
+            <li>
+                <a href="{{ url('settings') }}">
+                    <i data-feather="globe"></i>
+                    <span class="badge bg-success rounded-pill float-end">9</span>
+                    <span> Settings </span>
+                </a>
+            </li>
+        @else
+            <li>
+                <a href="{{ url('dd') }}">
+                    <i data-feather="aperture"></i>
+                    <span class="badge bg-success rounded-pill float-end">9+</span>
+                    <span> Create New Request</span>
+                </a>
+            </li>
+        @endif --}}
+
+    </ul>
 </div>
-
-

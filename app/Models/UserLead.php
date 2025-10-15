@@ -24,4 +24,6 @@ class UserLead extends Model
     {
         return $this->belongsTo(LeadInformation::class, 'lead_id');
     }
+
+    
 }

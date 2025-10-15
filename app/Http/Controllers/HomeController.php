@@ -23,12 +23,12 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $userInfor = User::where('id', $user->id)->first();
-        if ($userInfor->mode == 'Buyer') {
-            $userInfor->mode = 'Seller';
+        if ($userInfor->mode == 'Business') {
+            $userInfor->mode = 'Professional';
             $userInfor->save();
             return redirect('dashboard');
         } else {
-            $userInfor->mode = 'Buyer';
+            $userInfor->mode = 'Business';
             $userInfor->save();
             return redirect('dashboard');
         }
