@@ -9,8 +9,15 @@ class Service extends Model
     protected $fillable = ['name', 'is_active'];
 
     public function leads()
-{
-    return $this->hasMany(LeadInformation::class);
-}
+    {
+        return $this->hasMany(LeadInformation::class);
+    }
 
+    public function questions(){
+        return $this->hasMany(ServiceQuestion::class);
+    }
+
+    public function questionAnswers(){
+        return $this->hasMany(ServiceQuestionAnswer::class);
+    }
 }

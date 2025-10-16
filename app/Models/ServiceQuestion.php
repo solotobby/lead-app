@@ -11,4 +11,13 @@ class ServiceQuestion extends Model
     public function options(){
         return $this->hasMany(ServiceQuestionOptions::class);
     }
+
+    public function service(){
+        return $this->belongsTo(Service::class, 'service_id');
+    }
+
+    public function answers(){
+        return $this->hasMany(ServiceQuestionAnswer::class, 'service_question_id');
+    }   
+
 }

@@ -177,12 +177,12 @@
                     @if(auth()->user()->mode == 'Business')
                         <a href="{{ route('switch.account') }}" class="dropdown-item notify-item">
                             <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
-                            <span>Swich to Professiona</span>
+                            <span>Swich to Professional</span>
                         </a>
                     @else
                         <a href="{{ route('switch.account') }}" class="dropdown-item notify-item">
                             <i class="mdi mdi-lock-outline fs-16 align-middle"></i>
-                            <span>Swich to Buiness</span>
+                            <span>Swich to Business</span>
                         </a>
                     @endif
 

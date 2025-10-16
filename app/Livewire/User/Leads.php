@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Leads extends Component
 {
-      public $showModal = false;
+   
     public $leads;
 
 
@@ -23,8 +23,16 @@ class Leads extends Component
                 $query->where('user_leads.user_id', $user->id)
                     ->where('user_leads.status', 'contacted');
             })
-
-            ->with('service')
+            ->with([
+                'service',
+                'service.questions.options',
+                'answers' => function ($query) {
+                    $query->with(['question', 'option']);
+                },
+                'service.questions.answers' => function ($query) use ($user) {
+                    $query->where('user_id', $user->id); // Optional: filter answers by user
+                }
+            ])
             ->withCount([
                 'users as contacted_count' => function ($query) {
                     $query->where('user_leads.status', 'contacted');

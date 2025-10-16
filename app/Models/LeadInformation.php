@@ -22,10 +22,11 @@ class LeadInformation extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_leads', 'lead_id', 'user_id')
-                    ->withPivot('status')
-                    ->withTimestamps();
+            ->withPivot('status')
+            ->withTimestamps();
     }
-
-
-
+    public function answers()
+    {
+        return $this->hasMany(ServiceQuestionAnswer::class, 'lead_information_id');
+    }
 }

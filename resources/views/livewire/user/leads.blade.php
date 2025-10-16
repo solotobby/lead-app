@@ -16,7 +16,8 @@
                             <div class="card-header">
                                 <h4 class="card-title"> <i class="mdi mdi-emoticon-wink-outline me-1"></i>
                                     {{ getFirstName($lead->user->name) }} -
-                                    <i>{{ $lead->service->name ?? 'N/A' }}</i></h4>
+                                    <i>{{ $lead->service->name ?? 'N/A' }}</i>
+                                </h4>
                             </div>
                             <div class="card-body">
                                 <span class="mdi mdi-map-marker-outline"></span> {{ $lead->user->location ?? 'N/A' }}
@@ -27,13 +28,51 @@
                                 <span class="mdi mdi-chat-outline"></span> {{ $lead->contacted_count }} of 5 <br>
                                 <span class="mdi mdi-currency-usd"></span> {{ $lead->credit }} credits
 
+                                <div class="accordion mt-2" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target="#collapseOne-{{ $lead->id }}" aria-expanded="false"
+                                                aria-controls="collapseOne">
+                                                Highlights
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne-{{ $lead->id }}" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                @if ($lead->service && $lead->service->questions->isNotEmpty())
+                                                    <p class="card-text text-muted mb-0">
+                                                        @foreach ($lead->service->questions as $question)
+                                                            <strong> {{ $question->question ?? 'No Question Text' }}
+                                                            </strong> <br>
 
-                                <div class="mt-2">Highlight</div>
-                                <p class="card-text text-muted mb-0">Nemo enim ipsam voluptatem quia voluptas site that
-                                    aspernatur aut odit aut fugit sed quia consequunture magni that is dolores qui
-                                    ratione
-                                    voluptateme.
-                                </p>
+                                                            @php
+                                                                $answer = $lead->answers->firstWhere(
+                                                                    'service_question_id',
+                                                                    $question->id,
+                                                                );
+                                                            @endphp
+                                                            {{ $answer->option->option ?? 'No Answer Selected' }} <br>
+
+
+                                                            @if ($lead->answers->where('service_question_id', $question->id)->isEmpty())
+                                                                <p>No answer provided for this question.</p>
+                                                            @endif
+                                                            </li>
+                                                        @endforeach
+                                                    </p>
+                                                @else
+                                                    <p class="card-text text-muted mb-0">No additional information
+                                                        provided by the
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
                                 <div class="mt-3">
                                     <button class="btn btn-sm btn-info">View Deatils</button>
 

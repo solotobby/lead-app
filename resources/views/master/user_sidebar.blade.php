@@ -37,7 +37,7 @@
             {{-- Create Leads --}}
             <li>
                 <a href="{{ url('seller/dashboard') }}">
-                    <i data-feather="aperture"></i>
+                    <i data-feather="file-text"></i>
                     {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
                     <span>Create Lead</span> 
                 </a>
@@ -59,7 +59,7 @@
                 <span> Leads </span>
             </a>
         </li>
-        
+
 <li>
             <a href="{{ url('conversations') }}">
                 <i data-feather="aperture"></i>
